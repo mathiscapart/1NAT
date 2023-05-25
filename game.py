@@ -1,15 +1,17 @@
 from tkinter import *
+from random import *
 
 global dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, tab_live_brick, numbrick
 dessin = None
 int = Tk()
-int.geometry("1580x900")
+int.attributes("-fullscreen", True)
 exitpage = PhotoImage(file="image/button_exit.png")
 titlepic = PhotoImage(file="image/title.png")
 btn_play = PhotoImage(file="image/button_play.png")
 level1_brick = PhotoImage(file="image/level1_brickfinal.png")
 empty_brick = PhotoImage(file="image/vide.png")
 state = 0
+
 
 def create_life():
     global tab_life
@@ -19,18 +21,34 @@ def create_life():
         dessin.moveto(life, 300, 400 + (i * 60))
         tab_life.append(life)
 
+
 def create_brick():
-    global tab_brick,tab_live_brick
+    global tab_brick, tab_live_brick
     tab_brick = []
     tab_live_brick = []
     for x in range(9):
         for i in range(9):
-            tab_live_brick.append(3)
-            brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="pink")
-            tab_brick.append(brick)
+            brick_life = randint(1, 5)
+            tab_live_brick.append(brick_life)
+            if brick_life == 5:
+                brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="blue")
+                tab_brick.append(brick)
+            if brick_life == 4:
+                brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="green")
+                tab_brick.append(brick)
+            if brick_life == 3:
+                brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="pink")
+                tab_brick.append(brick)
+            if brick_life == 2:
+                brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="purple")
+                tab_brick.append(brick)
+            if brick_life == 1:
+                brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="yellow")
+                tab_brick.append(brick)
+
 
 def move(*args):
-    global state, dessin, dx, dy, vie_num, tab_brick, numbrick,launch,tab_live_brick
+    global state, dessin, dx, dy, vie_num, tab_brick, numbrick, launch, tab_live_brick
 
     dessin.move(balle1, dx, dy)
     int.after(10, move)
@@ -57,10 +75,12 @@ def move(*args):
         dy = -dy
         dx = 0
 
-    if dessin.coords(balle1)[3] > 500:
+    if dessin.coords(balle1)[3] > 600:
         vie_num = vie_num - 1
         dessin.moveto(balle1, 250, 250)
         dx = 0
+        dy = 3
+        dessin.itemconfig(balle1,)
         if vie_num == 0:
             loose()
 
@@ -69,39 +89,59 @@ def move(*args):
         brick_collision = dessin.find_overlapping(*dessin.coords(brick))
         if len(brick_collision) > 1:
             for item in brick_collision:
+                bonus_chance = randint(1,3)
+
                 if item == balle1:
                     dy = -dy
-                    tab_live_brick[brick_index] -=1
-                    if tab_live_brick[brick_index] == 2 :
-                        dessin.itemconfig(brick,fill="purple")
+                    tab_live_brick[brick_index] -= 1
+
+                    if tab_live_brick[brick_index] == 4:
+                        dessin.itemconfig(brick, fill="green")
+
+                    elif tab_live_brick[brick_index] == 3:
+                        dessin.itemconfig(brick, fill="pink")
+                    elif tab_live_brick[brick_index] == 2:
+                        dessin.itemconfig(brick, fill="purple")
 
                     elif tab_live_brick[brick_index] == 1:
-                        dessin.itemconfig(brick,fill="yellow")
-                    if tab_live_brick[brick_index] == 0 :
+                        dessin.itemconfig(brick, fill="yellow")
+                    if bonus_chance == 2:
+                        dessin.itemconfig(balle1,fill="blue")
+                        dy = 4
+                    if tab_live_brick[brick_index] == 0:
                         dessin.delete(brick)
                         tab_brick.remove(brick)
                         numbrick -= 1
                     break
         if numbrick <= 0:
-            victory_event()
+            create_brick()
+            numbrick = 5
+            dx = 0
+            dy=2
+            dessin.moveto(balle1,250,300)
 
 def moveplat(*args):
     if dessin.coords(platformbase)[2] < 500:
         dessin.move(platformbase, 20, 0)
 
+
 def moveplat_rev(*args):
     if dessin.coords(platformbase)[0] > 0:
         dessin.move(platformbase, -20, 0)
 
+
 def victory_event():
     dessin.destroy()
+
 
 def loose():
     global vie_num
     dessin.destroy()
 
+
 def restart_game():
     global state, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick
+    dessin.destroy()
 
     state = 0
     dessin = None
@@ -117,22 +157,23 @@ def restart_game():
 
     game()
 
+
 def game():
-    global platformbase,dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie,tab_brick, numbrick
-    dessin = Canvas(int, bg="black", width=500, height=400)
+    global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick
+    dessin = Canvas(int, bg="black", width=500, height=600)
     dx = 0
     dy = 2
     balle1 = dessin.create_oval(5, 5, 15, 15, fill='white')
     create_life()
     create_brick()
 
-    numbrick = 81
+    numbrick = 5
     vie_num = 3
     platformbase = dessin.create_rectangle(80, 30, 20, 20, fill="red")
-    border_left = dessin.create_rectangle(30, 500, 20, 20, fill="cyan")
-    border_right = dessin.create_rectangle(30, 500, 20, 20, fill="cyan")
+    border_left = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
+    border_right = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
 
-    dessin.moveto(platformbase, 220, 350)
+    dessin.moveto(platformbase, 220, 450)
     dessin.moveto(balle1, 250, 250)
     dessin.moveto(border_left, 0, 0)
     dessin.moveto(border_right, 491, 0)
@@ -143,8 +184,7 @@ def game():
     dessin.pack()
 
 
-
-Button(int,bg="blue",text="restart",command=restart_game).pack(anchor=SE)
+Button(int, bg="blue", text="restart", command=restart_game).pack(anchor=SE)
 int.bind("a", move)
 Button(int, bg="black", command=game).pack()
 
