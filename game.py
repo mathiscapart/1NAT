@@ -49,6 +49,7 @@ def create_brick():
 
 def move(*args):
     global state, dessin, dx, dy, vie_num, tab_brick, numbrick, launch, tab_live_brick
+    color = colors = ["yellow", "purple", "pink", "green", "blue"]
 
     dessin.move(balle1, dx, dy)
     int.after(10, move)
@@ -80,45 +81,39 @@ def move(*args):
         dessin.moveto(balle1, 250, 250)
         dx = 0
         dy = 3
-        dessin.itemconfig(balle1,)
+        dessin.itemconfig(balle1, fill="white")
         if vie_num == 0:
             loose()
 
     for brick in tab_brick:
-        brick_index = tab_brick.index(brick)
         brick_collision = dessin.find_overlapping(*dessin.coords(brick))
-        if len(brick_collision) > 1:
-            for item in brick_collision:
-                bonus_chance = randint(1,3)
+        if balle1 in brick_collision:
+            dy = -dy
+            brick_index = tab_brick.index(brick)
+            tab_live_brick[brick_index] -= 1
 
-                if item == balle1:
-                    dy = -dy
-                    tab_live_brick[brick_index] -= 1
+            if tab_live_brick[brick_index] > 0:
+                color = colors[tab_live_brick[brick_index]-1]
+                dessin.itemconfig(brick, fill=color)
+            else:
+                dessin.delete(brick)
+                tab_brick.remove(brick)
+                tab_live_brick.pop(brick_index)
+                numbrick -= 1
 
-                    if tab_live_brick[brick_index] == 4:
-                        dessin.itemconfig(brick, fill="green")
-
-                    elif tab_live_brick[brick_index] == 3:
-                        dessin.itemconfig(brick, fill="pink")
-                    elif tab_live_brick[brick_index] == 2:
-                        dessin.itemconfig(brick, fill="purple")
-
-                    elif tab_live_brick[brick_index] == 1:
-                        dessin.itemconfig(brick, fill="yellow")
-                    if bonus_chance == 2:
-                        dessin.itemconfig(balle1,fill="blue")
-                        dy = 4
-                    if tab_live_brick[brick_index] == 0:
-                        dessin.delete(brick)
-                        tab_brick.remove(brick)
-                        numbrick -= 1
-                    break
+            break
         if numbrick <= 0:
             create_brick()
-            numbrick = 5
+            numbrick = 81
             dx = 0
-            dy=2
-            dessin.moveto(balle1,250,300)
+            dy = 2
+            dessin.moveto(balle1, 250, 300)
+
+def colorbrick(life):
+    colors = ["yellow","purple","pink","green","blue"]
+
+
+    return colors[life]
 
 def moveplat(*args):
     if dessin.coords(platformbase)[2] < 500:
@@ -167,13 +162,13 @@ def game():
     create_life()
     create_brick()
 
-    numbrick = 5
+    numbrick = 81
     vie_num = 3
     platformbase = dessin.create_rectangle(80, 30, 20, 20, fill="red")
     border_left = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
     border_right = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
 
-    dessin.moveto(platformbase, 220, 450)
+    dessin.moveto(platformbase, 220, 500)
     dessin.moveto(balle1, 250, 250)
     dessin.moveto(border_left, 0, 0)
     dessin.moveto(border_right, 491, 0)
