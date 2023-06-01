@@ -8,6 +8,7 @@ def score():
     board_windows = Toplevel()
     board_windows.config(bg="white")
     board_windows.title("scoreboard")
+    board_windows.resizable(height=False, width=False)
 
     board = ttk.Treeview(board_windows, columns=(1,2,3), height=5, show="headings")
     board.pack()
