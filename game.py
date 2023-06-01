@@ -1,6 +1,6 @@
 from tkinter import *
 from random import *
-import mysql.connector
+import pygame
 
 connection = mysql.connector.connect(
     host="192.168.25.169",
@@ -17,6 +17,13 @@ def menu_start_game():
     int = Toplevel()
     int.config(bg="white")
     int.attributes("-fullscreen", True)
+    int.title("game")
+
+    pygame.mixer.init()
+    pygame.mixer.music.load("musique/GOREBone_Craquements-d-os-2-_ID-1408__LS.ogg")
+    pygame.mixer.music.set_volume(0.5)
+
+
     btn_play = PhotoImage(file="image/button_play.png")
     picture_life1 = PhotoImage(file="image/life_1.png")
     picture_life2 = PhotoImage(file="image/life_2.png")
@@ -139,6 +146,9 @@ def menu_start_game():
                         nb_score = nb_score + 600
                         score.config(text=nb_score)
 
+                    pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.music.play(1)
+
                 else:
                     dessin.delete(brick)
                     tab_brick.remove(brick)
@@ -147,6 +157,9 @@ def menu_start_game():
 
                     nb_score = nb_score + 800
                     score.config(text=nb_score)
+
+                    pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.music.play(1)
 
 
                 break
@@ -245,6 +258,9 @@ def menu_start_game():
     def game():
         global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, btn_restart, btn_exit, btn_frame, why, label_life, score
 
+        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
+        score.pack(side="top")
+
         dessin = Canvas(int, bg="black", width=500, height=600)
         dx = 0
         dy = 2
@@ -272,16 +288,13 @@ def menu_start_game():
         btn_frame = Frame(int, bg="white")
         btn_frame.pack()
 
-        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
-        score.place(x=930, y=10)
-
         btn_restart = Button(btn_frame, bg="orange", fg="white", text="RESTART", command=restart_game, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_restart.pack(side= "left", padx=20, pady=10)
         btn_exit = Button(btn_frame, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_exit.pack(side="right", padx=20, pady=10)
 
         label_life = Label(int, image=picture_life3, bg="white")
-        label_life.pack(pady=20)
+        label_life.pack()
 
         why = Label(int, text="appuiez sur 'A' pour lancer la partie", font=("yellowstone", 10), fg="black", bg="white")
         why.pack()
