@@ -1,0 +1,23 @@
+Comment lancé le jeu ?
+
+Tout d'abord installé python, si vous ne l'avez pas alors cliquez sur ce lien pour Windows :
+- https://www.python.org/ftp/python/3.11.3/python-3.11.3-amd64.exe
+Pour mac :
+- https://www.python.org/ftp/python/3.11.3/python-3.11.3-macos11.pkg
+Pour Linux :
+- https://www.python.org/ftp/python/3.11.3/Python-3.11.3.tar.xz
+
+Puis ensuite ouvrez votre terminal, votre invité de commande sur votre ordinateur puis copié/collé dans l'invité de commande ceci :
+
+- Windows :
+pip install tk
+- Ubuntu:
+sudo apt-get install python3-tk
+- Fedora :
+sudo dnf install python3-tkinter
+- MacOS :
+brew install python-tk
+
+Puis ensuite cliquez sur le fichier game.py est le jeux va se lancé automatiquement.
+
+Bon jeux à vous ;)

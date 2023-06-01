@@ -1,0 +1,1 @@
+CREATE TABLE `score`.`score` ( `id` INT(11) NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `score` INT(11) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

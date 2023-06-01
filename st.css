@@ -1,0 +1,616 @@
+@keyframes neon {
+
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+        text-shadow:
+                0 0 4px #fff,
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 40px #5271ff,
+                0 0 80px #5271ff,
+                0 0 90px #5271ff,
+                0 0 100px #5271ff,
+                0 0 150px #5271ff;
+    }
+
+    10%, 24%, 55%, 80%{
+        text-shadow: none;
+    }
+}
+
+
+@keyframes nav {
+
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+        text-shadow:
+                0 0 4px #fff,
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 40px #5271ff,
+                0 0 80px #5271ff,
+                0 0 90px #5271ff,
+                0 0 100px #5271ff,
+                0 0 150px #5271ff;
+    }
+
+    24%, 80%{
+        text-shadow: none;
+    }
+}
+
+body{
+    background-color: black!important;
+    margin: 0;
+    padding: 0;
+}
+
+#background{
+    background-image: url("mkdir/wall-2059909_640.png");
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    animation: neon 0.11s ease-in-out infinite alternate;
+    font-size: 150px;
+    text-align: center;
+    color: #fff;
+    font-family: "Yellowtail", sans-serif;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+}
+
+.burger{
+    margin-top: 4%;
+    margin-left: 4%;
+    width: 60px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#span1, #span2, #span3{
+    z-index: 9999;
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background-color: white;
+    box-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    border-radius: 12px;
+}
+
+#span1{
+    top: 0;
+    transition: top 0.2s ease-in-out;
+}
+
+#span2{
+    top: 50%;
+    transition: background-color 0.2s ease-in-out;
+    transform: translateY(-50%);
+}
+
+#span3{
+    bottom: 0;
+    transition: bottom 0.2s ease-in-out;
+}
+
+.burger:focus{
+    outline: none;
+}
+
+.burger.active #span2{
+    display: none;
+}
+.burger.active #span1{
+    top: 50%;
+    transform: translateY(0px) rotateZ(45deg);
+}
+.burger.active #span3{
+    bottom: 50%;
+    transform: translateY(0px) rotateZ(-45deg);
+}
+
+nav {
+    margin-top: 6%;
+    position: absolute;
+    width: 40vh;
+    min-height: 60vh;
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: transparent;
+    transform: translateY(-200%);
+    transition: transform 0.6s cubic-bezier(.16,.26,.95,.48);
+    z-index: 9999;
+}
+
+nav.descent {
+    transform: translate(0)!important;
+}
+
+nav a {
+    z-index: 3!important;
+    font-size: 40px;
+    display: block;
+    margin: 24px 0;
+    text-decoration: none;
+    animation: nav 0.4s ease-in-out infinite alternate;
+    color: #fff;
+    font-family: "Yellowtail", sans-serif;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+}
+
+nav a:hover{
+    text-decoration: none;
+    color: #fff;
+    animation: none;
+    font-family: "Yellowtail", sans-serif;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+}
+
+h2{
+    position: absolute;
+    color: #fff!important;
+    font-family: "Yellowtail", sans-serif!important;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    font-size: 70px!important;
+    z-index: 9999;
+}
+
+#span4{
+    top: 102%;
+    position: absolute;
+    margin-left: 5%;
+    width: 90%;
+    height: 6px;
+    background-color: white;
+    box-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    border-radius: 12px;
+    z-index: 2;
+}
+
+.degrade{
+    position: absolute;
+    z-index: 1;
+    top: 89%!important;
+    background: linear-gradient(to bottom, transparent 0%, black 100%);
+    width: 100%;
+    height: 120px;
+}
+
+#block {
+    display: flex;
+    flex-direction: column;
+    margin-top: 55%;
+}
+
+#jeux{
+    margin-top: 2%;
+}
+
+#jeux, #info, #download, #contact, #score_board {
+    display: block;
+    margin-left: 5%!important;
+}
+
+#download{
+    margin-bottom: 20%;
+}
+
+#table_score{
+    margin-top: 12%;
+    border: 1px solid white;
+    border-radius: 12px;
+    width: 90%;
+    box-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+}
+
+.alignement_score{
+    display: flex;
+    margin-left: 24%;
+    margin-top: 2%;
+}
+
+#table_score p{
+    text-decoration: none;
+    color: #fff;
+    animation: none;
+    font-family: "Yellowtail", sans-serif;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    font-size: 40px;
+    margin-right: 4%;
+    margin-top: 3%;
+}
+
+#info, #download, #score_board{
+    margin-top: 10%;
+}
+
+#contact{
+    margin-top: 5%;
+}
+
+.img_txt{
+    display: flex;
+}
+
+#btn_download{
+    z-index: 99999;
+    display: block;
+    position: absolute;
+    width: 25%;
+    height: 100px;
+    margin-top: 14%;
+    margin-left: 31%;
+    color: white;
+    font-family: "Yellowtail", sans-serif;
+    background-color: transparent;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    box-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    border-radius: 12px;
+    border: white solid 4px;
+    font-size: 40px;
+    transition-duration: 0.4s;
+}
+
+#btn_download:hover{
+    background-color: white;
+    color: black;
+    text-shadow: none;
+}
+
+.img_txt .txt_block{
+    margin-top: 7%!important;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.txt_block{
+    margin-top: 12%!important;
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.img_txt{
+    margin-top: 10%;
+}
+
+.txt_block h4{
+    color: white;
+    font-family: "Cherry Bomb One", Arial, sans-serif!important;
+    font-size: 50px!important;
+}
+
+.txt_block p{
+    color: white;
+    font-family: "Cherry Bomb One", Arial, sans-serif!important;
+    font-size: 25px!important;
+}
+
+#contact p{
+    position: absolute;
+    color: #fff!important;
+    font-family: "Yellowtail", sans-serif!important;
+    margin-left: 8%;
+    text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    font-size: 70px!important;
+}
+
+#contact .img_txt{
+    margin-left: 20%;
+}
+
+#endessous{
+    margin-top: 4%!important;
+}
+
+#img_break_it{
+    margin-top: 2%;
+    border-radius: 40px;
+}
+
+#span5{
+    position: absolute;
+    margin-left: -6%;
+    margin-bottom: 5%;
+    width: 60%;
+    height: 6px;
+    background-color: white;
+    box-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #5271ff,
+            0 0 82px #5271ff,
+            0 0 92px #5271ff,
+            0 0 102px #5271ff,
+            0 0 151px #5271ff;
+    border-radius: 12px;
+    z-index: 2;
+}
+
+@media screen and (max-width: 1430px){
+    #block{
+        margin-top: 60%;
+    }
+    #btn_download{
+        width: 18%;
+        margin-left: 33%;
+    }
+    .alignement_score{
+        margin-left: 20%;
+    }
+}
+
+@media screen and (max-width: 1330px){
+    #block{
+        margin-top: 65%;
+    }
+    #contact .img_txt {
+        margin-left: 14%;
+    }
+    #contact p {
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 1230px){
+    #block{
+        margin-top: 70%;
+    }
+    #contact .img_txt {
+        margin-left: 14%;
+    }
+    #contact p {
+        margin-left: 10%;
+    }
+    #span5{
+        margin-left: -3%;
+        width: 75%;
+    }
+    .alignement_score{
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width: 1130px){
+
+    #block{
+        margin-top: 80%;
+    }
+    #btn_download{
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 1030px){
+    #block{
+        margin-top: 90%;
+    }
+    #btn_download{
+        width: 25%;
+    }
+    #contact .img_txt {
+        margin-left: 12%;
+    }
+    #contact p {
+        margin-left: 15%;
+        font-size: 50px!important;
+    }
+}
+
+@media screen and (max-width: 930px){
+    #table_score{
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+    #span5 {
+        margin-left: 0;
+    }
+    .alignement_score {
+        margin-left: 4%;
+    }
+    #block{
+        margin-top: 110%;
+    }
+    .img_txt {
+        display: block;
+    }
+    #img_break_it{
+        margin-left: 25%;
+    }
+}
+
+@media screen and (max-width: 830px){
+    #score_board{
+        margin-top: 30%;
+    }
+    #table_score p{
+        font-size: 30px;
+    }
+    #span5 {
+        margin-left: 30px;
+    }
+    .alignement_score {
+        margin-left: 2%;
+    }
+    #table_score{
+        margin-top: 25%;
+        margin-bottom: 10%;
+    }
+    #block{
+        margin-top: 130%;
+    }
+    #btn_download{
+        width: 40%;
+        margin-left: 23%;
+        margin-top: 20%;
+    }
+    .img_txt img{
+        height: 200px;
+        margin-top: 28%!important;
+    }
+    #contact #score_board{
+        margin-top: 25%;
+    }
+    .txt_block h4 {
+        margin-top: 25%;
+    }
+    #contact .img_txt {
+        margin-left: 5%;
+        margin-top: 20%;
+    }
+    #info #download{
+        margin-top: 15%;
+    }
+}
+
+
+@media screen and (max-width: 630px){
+    #table_score p{
+        font-size: 25px;
+    }
+    #score_board{
+        margin-top: 40%;
+    }
+    #block{
+        margin-top: 170%;
+    }
+    #contact .img_txt {
+        margin-left: 0;
+    }
+    #contact p {
+        margin-left: 0;
+    }
+    #img_break_it{
+        margin-left: 15%;
+    }
+    #contact #score_board{
+        margin-top: 35%;
+    }
+    #btn_download{
+        margin-top: 25%;
+    }
+    #endessous{
+        margin-top: 15% !important;
+    }
+}
