@@ -1,5 +1,14 @@
 from tkinter import *
 from random import *
+import mysql.connector
+
+connection = mysql.connector.connect(
+    host="192.168.25.169",
+    port=3306,
+    user='root',
+    password='EcoleIT123!',
+    database='score'
+)
 
 def menu_start_game():
 
@@ -8,8 +17,6 @@ def menu_start_game():
     int = Toplevel()
     int.config(bg="white")
     int.attributes("-fullscreen", True)
-    int.title("game")
-
     btn_play = PhotoImage(file="image/button_play.png")
     picture_life1 = PhotoImage(file="image/life_1.png")
     picture_life2 = PhotoImage(file="image/life_2.png")
@@ -238,9 +245,6 @@ def menu_start_game():
     def game():
         global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, btn_restart, btn_exit, btn_frame, why, label_life, score
 
-        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
-        score.pack(side="top")
-
         dessin = Canvas(int, bg="black", width=500, height=600)
         dx = 0
         dy = 2
@@ -268,13 +272,16 @@ def menu_start_game():
         btn_frame = Frame(int, bg="white")
         btn_frame.pack()
 
+        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
+        score.place(x=930, y=10)
+
         btn_restart = Button(btn_frame, bg="orange", fg="white", text="RESTART", command=restart_game, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_restart.pack(side= "left", padx=20, pady=10)
         btn_exit = Button(btn_frame, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_exit.pack(side="right", padx=20, pady=10)
 
         label_life = Label(int, image=picture_life3, bg="white")
-        label_life.pack()
+        label_life.pack(pady=20)
 
         why = Label(int, text="appuiez sur 'A' pour lancer la partie", font=("yellowstone", 10), fg="black", bg="white")
         why.pack()
@@ -293,6 +300,13 @@ def menu_start_game():
     name_player = Entry(int, font=("yellowstone", 20), borderwidth=4, fg="gray", bg="white")
     name_player.pack(pady=10)
     name_player.insert(0, "Entrez votre pseudo...")
+
+    cursor = connection.cursor()
+    insert = "INSERT INTO score (name, score, date) VALUES (%s, %s, NOW())"
+    values = (name_player, nb_score)
+    cursor.execute(insert, values)
+    connection.commit()
+    connection.close()
 
     btn_valid_entry = Button(int, command=confirme_entry, relief="flat", borderwidth=0, text="Valider", bg="green", fg="white", font=("yellowstone", 15))
     btn_valid_entry.pack(pady=10)
