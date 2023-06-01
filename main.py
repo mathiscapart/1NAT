@@ -1,5 +1,7 @@
 from tkinter import *
+from tkinter import ttk
 import game
+import scoreboard
 
 
 menu = Tk()
@@ -24,5 +26,11 @@ start_game = Button(menu, image=start, command=on_game, relief="flat", borderwid
 start_game.pack(pady=10)
 btn_exit = Button(menu, image=exit, command=exit_windows, relief="flat", borderwidth=0, bg="white")
 btn_exit.pack(ipadx=20, pady=5)
+
+def open_score():
+    scoreboard.score()
+
+btn_top_score = Button(menu, text="tableau des score", relief="flat", font=("yellowstone", 20), bg="green", fg="white", command=open_score)
+btn_top_score.pack(pady=10)
 
 menu.mainloop()
