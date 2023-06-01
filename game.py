@@ -15,6 +15,9 @@ def menu_start_game():
 
     state = 0
 
+    global nb_score
+    nb_score = 0
+
     def create_life():
         global tab_life
         tab_life = []
@@ -24,7 +27,7 @@ def menu_start_game():
             tab_life.append(life)
 
     def create_brick():
-        global tab_brick, tab_live_brick
+        global tab_brick, tab_live_brick, nb_score, score, brick_life
         tab_brick = []
         tab_live_brick = []
         for x in range(9):
@@ -34,22 +37,27 @@ def menu_start_game():
                 if brick_life == 5:
                     brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="blue")
                     tab_brick.append(brick)
+
                 if brick_life == 4:
                     brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="green")
                     tab_brick.append(brick)
+
                 if brick_life == 3:
                     brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="pink")
                     tab_brick.append(brick)
+
                 if brick_life == 2:
                     brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="purple")
                     tab_brick.append(brick)
+
                 if brick_life == 1:
                     brick = dessin.create_rectangle(i * 55, x * 20, (i + 1) * 55, (x + 1) * 20, fill="yellow")
                     tab_brick.append(brick)
 
+
     def move(*args):
-        global state, dessin, dx, dy, vie_num, tab_brick, numbrick, launch, tab_live_brick
-        color = colors = ["yellow", "purple", "pink", "green", "blue"]
+        global state, dessin, dx, dy, vie_num, tab_brick, numbrick, launch, tab_live_brick, nb_score, score, brick_life
+        colors = ["yellow", "purple", "pink", "green", "blue"]
 
         why.destroy()
 
@@ -105,11 +113,32 @@ def menu_start_game():
                 if tab_live_brick[brick_index] > 0:
                     color = colors[tab_live_brick[brick_index] - 1]
                     dessin.itemconfig(brick, fill=color)
+
+                    if color == "green":
+                        nb_score = nb_score + 200
+                        score.config(text=nb_score)
+
+                    if color == "pink":
+                        nb_score = nb_score + 300
+                        score.config(text=nb_score)
+
+                    if color == "purple":
+                        nb_score = nb_score + 500
+                        score.config(text=nb_score)
+
+                    if color == "yellow":
+                        nb_score = nb_score + 600
+                        score.config(text=nb_score)
+
                 else:
                     dessin.delete(brick)
                     tab_brick.remove(brick)
                     tab_live_brick.pop(brick_index)
                     numbrick -= 1
+
+                    nb_score = nb_score + 800
+                    score.config(text=nb_score)
+
 
                 break
             if numbrick <= 0:
@@ -151,7 +180,9 @@ def menu_start_game():
 
     def loose():
 
+        global nb_score
         dessin.destroy()
+        score.destroy()
 
         btn_frame.destroy()
 
@@ -161,20 +192,28 @@ def menu_start_game():
         Game_over = Label(frame_loose, text="GAME OVER", fg="red", font=("yellowstone", 40), bg="white")
         Game_over.pack(pady=20)
 
-        label_score = Label(frame_loose, text="score : 00000", font=("yellowstone", 25), bg="white")
-        label_score.pack(pady=10)
+        appel_score = IntVar()
+        appel_score.set(nb_score)
+
+        display_score = Label(int, text="Ton Score :", bg="white", fg="black", font=("yellowstone", 20))
+        display_score.place(x= 650, y=170)
+
+        display_score_number = Label(int, textvariable=appel_score, bg="white", fg="black",font=("yellowstone", 20))
+        display_score_number.place(x=800, y=170)
 
         btn_exit = Button(frame_loose, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
-        btn_exit.pack(padx=20, pady=10)
+        btn_exit.pack(padx=20, pady=50)
 
 
     def restart_game():
-        global state, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick
+        global state, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, nb_score
         dessin.destroy()
         label_life.destroy()
         why.destroy()
+        score.destroy()
 
         state = 0
+        nb_score = 0
         dessin = None
         launch = None
         balle1 = None
@@ -195,7 +234,7 @@ def menu_start_game():
         int.destroy()
 
     def game():
-        global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, btn_restart, btn_exit, btn_frame, why, label_life
+        global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, btn_restart, btn_exit, btn_frame, why, label_life, score
 
         dessin = Canvas(int, bg="black", width=500, height=600)
         dx = 0
@@ -223,6 +262,9 @@ def menu_start_game():
 
         btn_frame = Frame(int, bg="white")
         btn_frame.pack()
+
+        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
+        score.place(x=930, y=10)
 
         btn_restart = Button(btn_frame, bg="orange", fg="white", text="RESTART", command=restart_game, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_restart.pack(side= "left", padx=20, pady=10)
