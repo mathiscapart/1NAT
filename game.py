@@ -19,9 +19,9 @@ def save_score(name, score):
     connection.commit()
     cursor.close()
 
-def menu_start_game():
+def game():
 
-    global dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, tab_live_brick, numbrick
+    global dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, tab_live_brick, numbrick, score
     dessin = None
     int = Toplevel()
     int.config(bg="white")
@@ -84,7 +84,7 @@ def menu_start_game():
         global state, dessin, dx, dy, vie_num, tab_brick, numbrick, launch, tab_live_brick, nb_score, score, brick_life
         colors = ["yellow", "purple", "pink", "green", "blue"]
 
-        why.destroy()
+        btn_start.destroy()
 
         dessin.move(balle1, dx, dy)
         int.after(10, move)
@@ -191,24 +191,6 @@ def menu_start_game():
     def moveplat_rev(*args):
         if dessin.coords(platformbase)[0] > 0:
             dessin.move(platformbase, -20, 0)
-    """
-    def victory_event():
-        dessin.destroy()
-
-        btn_frame.destroy()
-
-        frame_win = Frame(int, bg="white")
-        frame_win.pack()
-
-        felicitation = Label(frame_win, text="FELICITATION", fg="green", font=("yellowstone", 40), bg="white")
-        felicitation.pack(pady=20)
-
-        label_score = Label(frame_win, text="score : 00000", font=("yellowstone", 25), bg="white")
-        label_score.pack(pady=10)
-
-        btn_exit = Button(frame_win, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat",borderwidth=0, font=("yellowstone", 20), width=10)
-        btn_exit.pack(padx=20, pady=10)
-    """
 
     def loose():
 
@@ -232,18 +214,10 @@ def menu_start_game():
         display_score_number = Label(frame_score, textvariable=appel_score, bg="white", fg="black",font=("yellowstone", 20))
         display_score_number.pack(side="right")
 
-        name = name_player_label
-
-        btn_score = Button(frame_loose, text="SAVE THE SCORE", bg="green", fg="white",
-                           command=lambda: save_score(name, score), relief="flat",
-                           borderwidth=0, font=("yellowstone", 20), width=30)
-        btn_score.pack(padx=20, pady=50)
-
         btn_exit = Button(int, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
         btn_exit.pack(pady=10)
 
     def enter_name():
-        global name_player_label
 
         dessin.destroy()
         score.destroy()
@@ -270,10 +244,8 @@ def menu_start_game():
 
     def restart_game():
         global state, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, nb_score
-        dessin.destroy()
-        label_life.destroy()
-        why.destroy()
-        score.destroy()
+
+        int.destroy()
 
         state = 0
         nb_score = 0
@@ -296,53 +268,45 @@ def menu_start_game():
     def exit_windows():
         int.destroy()
 
-    def game():
-        global platformbase, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, btn_restart, btn_exit, btn_frame, why, label_life, score
 
-        score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
-        score.pack(side="top")
+    score = Label(int, background="black", borderwidth=4, width=5, text=nb_score, fg="white",font=("yellowstone", 20),)
+    score.pack(side="top")
 
-        dessin = Canvas(int, bg="black", width=500, height=600)
-        dx = 0
-        dy = 2
-        balle1 = dessin.create_oval(5, 5, 15, 15, fill='white')
-        create_life()
-        create_brick()
+    dessin = Canvas(int, bg="black", width=500, height=600)
+    dx = 0
+    dy = 2
+    balle1 = dessin.create_oval(5, 5, 15, 15, fill='white')
+    create_life()
+    create_brick()
 
-        numbrick = 81
-        vie_num = 3
-        platformbase = dessin.create_rectangle(80, 30, 20, 20, fill="red")
-        border_left = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
-        border_right = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
+    numbrick = 81
+    vie_num = 3
+    platformbase = dessin.create_rectangle(80, 30, 20, 20, fill="red")
+    border_left = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
+    border_right = dessin.create_rectangle(30, 750, 20, 20, fill="cyan")
 
-        dessin.moveto(platformbase, 220, 500)
-        dessin.moveto(balle1, 250, 250)
-        dessin.moveto(border_left, 0, 0)
-        dessin.moveto(border_right, 491, 0)
+    dessin.moveto(platformbase, 220, 500)
+    dessin.moveto(balle1, 250, 250)
+    dessin.moveto(border_left, 0, 0)
+    dessin.moveto(border_right, 491, 0)
 
-        int.bind("<Right>", moveplat)
-        int.bind("<Left>", moveplat_rev)
+    int.bind("<Right>", moveplat)
+    int.bind("<Left>", moveplat_rev)
 
-        dessin.pack()
-        start_game.destroy()
+    dessin.pack()
 
-        btn_frame = Frame(int, bg="white")
-        btn_frame.pack()
+    btn_frame = Frame(int, bg="white")
+    btn_frame.pack()
 
-        btn_restart = Button(btn_frame, bg="orange", fg="white", text="RESTART", command=restart_game, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
-        btn_restart.pack(side= "left", padx=20, pady=10)
-        btn_exit = Button(btn_frame, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
-        btn_exit.pack(side="right", padx=20, pady=10)
+    btn_restart = Button(btn_frame, bg="orange", fg="white", text="RESTART", command=restart_game, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
+    btn_restart.pack(side= "left", padx=20, pady=10)
+    btn_exit = Button(btn_frame, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
+    btn_exit.pack(side="right", padx=20, pady=10)
 
-        label_life = Label(int, image=picture_life3, bg="white")
-        label_life.pack()
+    label_life = Label(int, image=picture_life3, bg="white")
+    label_life.pack()
 
-        why = Label(int, text="appuiez sur 'A' pour lancer la partie", font=("yellowstone", 10), fg="black", bg="white")
-        why.pack()
-
-    int.bind("a", move)
-
-    start_game = Button(int, image=btn_play, command=game, relief="flat", borderwidth=0, bg="white")
-    start_game.pack(pady=10)
+    btn_start = Button(int, text="LANCER", bg="white", fg="black", command=move, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
+    btn_start.pack()
 
     int.mainloop()
