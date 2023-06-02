@@ -117,7 +117,7 @@ def menu_start_game():
                 label_life.config(image=picture_life1)
             elif vie_num == 0:
                 label_life.destroy()
-                loose()
+                enter_name()
 
         for brick in tab_brick:
             brick_collision = dessin.find_overlapping(*dessin.coords(brick))
@@ -203,13 +203,12 @@ def menu_start_game():
     def loose():
 
         global nb_score
-        dessin.destroy()
-        score.destroy()
-
-        btn_frame.destroy()
 
         frame_loose = Frame(int, bg="white")
         frame_loose.pack()
+
+        frame_score = Frame(int, bg="white")
+        frame_score.pack()
 
         Game_over = Label(frame_loose, text="GAME OVER", fg="red", font=("yellowstone", 40), bg="white")
         Game_over.pack(pady=20)
@@ -217,15 +216,39 @@ def menu_start_game():
         appel_score = IntVar()
         appel_score.set(nb_score)
 
-        display_score = Label(int, text="Ton Score :", bg="white", fg="black", font=("yellowstone", 20))
-        display_score.place(x= 650, y=170)
+        display_score = Label(frame_score, text="Ton Score :", bg="white", fg="black", font=("yellowstone", 20))
+        display_score.pack(side="left")
 
-        display_score_number = Label(int, textvariable=appel_score, bg="white", fg="black",font=("yellowstone", 20))
-        display_score_number.place(x=800, y=170)
+        display_score_number = Label(frame_score, textvariable=appel_score, bg="white", fg="black",font=("yellowstone", 20))
+        display_score_number.pack(side="right")
 
-        btn_exit = Button(frame_loose, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
-        btn_exit.pack(padx=20, pady=50)
+        btn_exit = Button(int, text="EXIT", bg="red", fg="white", command=exit_windows, relief="flat", borderwidth=0, font=("yellowstone", 20), width=10)
+        btn_exit.pack(pady=10)
 
+    def enter_name():
+
+        dessin.destroy()
+        score.destroy()
+        btn_frame.destroy()
+
+        def confirme_entry():
+
+            name_player_label.config(text=name_player.get())
+
+            btn_valid_entry.destroy()
+            name_player.destroy()
+
+            loose()
+
+        name_player = Entry(int, font=("yellowstone", 20), borderwidth=4, fg="gray", bg="white")
+        name_player.pack(pady=10)
+        name_player.insert(0, "Entrez votre pseudo...")
+
+        btn_valid_entry = Button(int, command=confirme_entry, relief="flat", borderwidth=0, text="Valider", bg="green", fg="white", font=("yellowstone", 15))
+        btn_valid_entry.pack(pady=10)
+
+        name_player_label = Label(int, font=("yellowstone", 20), borderwidth=4, fg="gray", bg="white")
+        name_player_label.pack(pady=10)
 
     def restart_game():
         global state, dessin, launch, balle1, dx, dy, brick1, vie_num, btnvie, tab_brick, numbrick, nb_score
@@ -301,19 +324,6 @@ def menu_start_game():
 
     int.bind("a", move)
 
-    def confirme_entry():
-        global start_game
-
-        name_player_label.config(text=name_player.get())
-        name_player.destroy()
-        btn_valid_entry.destroy()
-        start_game = Button(int, image=btn_play, command=game, relief="flat", borderwidth=0, bg="white")
-        start_game.pack(pady=10)
-
-    name_player = Entry(int, font=("yellowstone", 20), borderwidth=4, fg="gray", bg="white")
-    name_player.pack(pady=10)
-    name_player.insert(0, "Entrez votre pseudo...")
-
     cursor = connection.cursor()
     insert = "INSERT INTO score (name, score, date) VALUES (%s, %s, NOW())"
     values = (name_player, nb_score)
@@ -321,10 +331,7 @@ def menu_start_game():
     connection.commit()
     connection.close()
 
-    btn_valid_entry = Button(int, command=confirme_entry, relief="flat", borderwidth=0, text="Valider", bg="green", fg="white", font=("yellowstone", 15))
-    btn_valid_entry.pack(pady=10)
-
-    name_player_label = Label(int, font=("yellowstone", 20), borderwidth=4, fg="gray", bg="white")
-    name_player_label.pack(pady=10)
+    start_game = Button(int, image=btn_play, command=game, relief="flat", borderwidth=0, bg="white")
+    start_game.pack(pady=10)
 
     int.mainloop()
