@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 import game
 import scoreboard
 
@@ -14,7 +13,7 @@ start = PhotoImage(file="image/button_play.png")
 exit = PhotoImage(file="image/button_exit.png")
 
 def on_game():
-    game.menu_start_game()
+    game.game()
 
 def exit_windows():
     menu.destroy()
